@@ -28,6 +28,7 @@ _ReSharper.CSharp/
 /Temp
 /Logs
 /Unity/CSharp60Support/compilation.log
+
 /.vs
 /Server/.vs/
 /Unity/.vs/
@@ -40,6 +41,7 @@ _ReSharper.CSharp/
 /Assets/StreamingAssets/
 /AssetBundles/
 /Library/
+/XCodeBuild/
 /.gradle
 
 /netcoreapp2.0

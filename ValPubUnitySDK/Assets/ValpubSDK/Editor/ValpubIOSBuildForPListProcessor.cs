@@ -1,10 +1,11 @@
 ﻿#if UNITY_IPHONE || UNITY_IOS
+using System.Net.Mime;
 using System.IO;
 
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
-
+using UnityEngine;
 
 public class IOSBuildForPListProcessor
 {
@@ -18,6 +19,7 @@ public class IOSBuildForPListProcessor
         string targetGuid = project.TargetGuidByName(PBXProject.GetUnityTargetName());
         SetBuildSetting(project, targetGuid, path);
         SetLibrary(project, targetGuid, path);
+        CopyFiles(project, targetGuid, path);
         project.WriteToFile(projectPath);
         SetInfoList(path);
     }
@@ -49,6 +51,13 @@ public class IOSBuildForPListProcessor
             project.AddFrameworkToProject(targetGuid, str, false);
         }
 
+    }
+
+    static void CopyFiles(PBXProject project, string targetGuid, string path)
+    {
+        string bundleFilePath = Application.dataPath + "/ValpubSDK/Plugins/IOS/ValpubSDK/TMPSResource.bundle";
+        string fileGuid = project.AddFile(bundleFilePath, "Frameworks/TMPSResource.bundle", PBXSourceTree.Build);
+        project.AddFileToBuild(targetGuid, fileGuid);
     }
 
     static void SetInfoList(string path)
